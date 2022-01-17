@@ -1,0 +1,21 @@
+{
+  "name": "wetube",
+  "version": "1.0.0",
+  "description": "The best way to watch video",
+  "scripts": {
+    "win": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apeachicetea/wetubue-reloaded.git"
+  },
+  "author": "Viktor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apeachicetea/wetubue-reloaded/issues"
+  },
+  "homepage": "https://github.com/apeachicetea/wetubue-reloaded#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
