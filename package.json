@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "The best way to watch video",
   "scripts": {
-    "win": "node index.js"
+    "dev": "nodemon --exec babel-node index.js"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,11 @@
   "homepage": "https://github.com/apeachicetea/wetubue-reloaded#readme",
   "dependencies": {
     "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.8",
+    "nodemon": "^2.0.15"
   }
 }
