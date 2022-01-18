@@ -1,9 +1,11 @@
 import express from 'express';
+import { edit, remove, see, logout } from '../controllers/userController.js';
 
 const userRouter = express.Router();
 
-const handleEditUser = (req, res) => res.send("Edit User");
-
-userRouter.get("/edit", handleEditUser);
+userRouter.get("/:id", see);
+userRouter.get("/logout", logout);
+userRouter.get("/edit", edit);
+userRouter.get("/remove", remove);
 
 export default userRouter;
