@@ -1,30 +1,20 @@
 import mongoose from "mongoose";
 
-// model을 생성하기전에 우리는 model의 형태를 정의해 줄 필요가 있다
-// 그것은 schema
-// 아래 코드블럭 안에 비디오 형식을 작성한다(실제 데이터는 넣지않고 형식만 정의한다)
-// 예시)데이터 형식
-// const video = {
-//   title: "Heki",
-//   description: "lalala",
-//   createdAt: 1212,
-//   hashtags: [
-//     "#hi",
-//     "#mongo"
-//   ]
-// }
 const videoSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  createdAt: Date,
-  hashtags: [{ type: String }],
+  title: { type: String, required: true, tirm: true, maxlength: 80 },
+  description: { type: String, required: true, tirm: true, minlength: 20 },
+  createdAt: { type: Date, required: true, default: Date.now },
+  hashtags: [{ type: String, trim: true }],
   meta: {
-    views: Number,
-    rating: Number,
+    views: { type: Number, default: 0, required: true },
+    rating: { type: Number, default: 0, required: true },
   },
 })
 
-// Video model을 생성하고, 이 model은 위에서 정의한 형식을 따른다
+videoSchema.static("formatHashtags", function(hashtags) {
+  return hashtags.split(",").map(el => el.startsWith("#") ? el : `#${el}`);
+})
+
 const movieModel = mongoose.model("Video", videoSchema);
 
 export default movieModel;
