@@ -16,7 +16,9 @@
   },
   "homepage": "https://github.com/apeachicetea/wetubue-reloaded#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.2",
+    "express-session": "^1.17.2",
     "mongoose": "^6.1.7",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
