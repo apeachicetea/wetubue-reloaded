@@ -27,6 +27,7 @@ app.use(
 app.use(localMiddleware);
 //브라우저에게 폴더 전체를 접근할 수 있게 해준다
 app.use("/uploads", express.static("uploads"));
+app.use("/upload", express.static("upload"));
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);

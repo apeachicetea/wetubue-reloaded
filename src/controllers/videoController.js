@@ -1,4 +1,5 @@
 import Video from "../models/Video.js";
+import User from "../models/User.js";
 
 export const home = async (req, res) => {
   // console.log(req.session.user);
@@ -12,7 +13,11 @@ export const home = async (req, res) => {
 
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id);
+  //poplate()는 몽구스가 기존의 owner가 objectId인 것을 알고 objectId가 User 모델에서 온것임을 안다
+  //(그 이유는 Video 모델에서 명시해놓았기 떄문이다)
+  //그래서 몽구스가 해당 User모델에서 user를 찾아서 video를 로드했을떄 해당 user의 정보도 얻을 수 있게 된다
+  const video = await Video.findById(id).populate("owner");
+  console.log(video);
   if (!video) {
     return res.render("404", { pageTitle: "Video not found." });
   }
@@ -49,13 +54,17 @@ export const getUpload = (req, res) => {
 };
 export const postUpload = async (req, res) => {
   // here we will add a video to the videos array
-  const file = req.file;
+  const {
+    user: { _id },
+  } = req.session;
+  const { path } = req.file;
   const { title, description, hashtags } = req.body;
   try {
     await Video.create({
       title,
       description,
-      fileUrl: file.path,
+      fileUrl: path,
+      owner: _id,
       hashtags: Video.formatHashtags(hashtags),
     });
 
