@@ -96,6 +96,7 @@ export const finishGithubLogin = async (req, res) => {
         },
       })
     ).json();
+
     const emailData = await (
       await fetch(`${apiUrl}/user/emails`, {
         headers: {
@@ -112,7 +113,7 @@ export const finishGithubLogin = async (req, res) => {
     let user = await User.findOne({ email: emailObj.email });
     if (!user) {
       user = await User.create({
-        avartarUrl: userData.avatar_url,
+        avatarUrl: userData.avatar_url,
         name: userData.name,
         username: userData.login,
         email: emailObj.email,
@@ -141,19 +142,20 @@ export const getEdit = (req, res) => {
 export const postEdit = async (req, res) => {
   const {
     session: {
-      user: { _id, avartarUrl },
+      user: { _id, avatarUrl },
     },
     body: { name, email, username, location },
     file,
   } = req;
-
+  // console.log(file.path, avatarUrl);
+  // console.log(avatarUrl, file.path);
   // User.findByIdAndUpdate(id, {업데이트할 내용}, { new: true })
   // 옵션에 new: true을 설정해주지 않으면, 몽구스는 원래 데이터를 리턴하고,
   // 옵션에 new: true을 설정하면, 업데이트된 데이터를 리턴한다
   const updateUser = await User.findByIdAndUpdate(
     _id,
     {
-      avartarUrl: file ? file.path : avartarUrl,
+      avatarUrl: file ? file.path : avatarUrl,
       name,
       email,
       username,
