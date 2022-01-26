@@ -118,3 +118,11 @@ export const search = async (req, res) => {
   }
   res.render("search", { pageTitle: "Search", videos });
 };
+
+export const registerView = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.status(404);
+  }
+};

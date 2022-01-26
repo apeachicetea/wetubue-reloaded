@@ -143,16 +143,29 @@ export const getEdit = (req, res) => {
 export const postEdit = async (req, res) => {
   const {
     session: {
-      user: { _id, avatarUrl },
+      user: { _id, avatarUrl, email: sessionEmail, username: sessionUsername },
     },
     body: { name, email, username, location },
     file,
   } = req;
-  // console.log(file.path, avatarUrl);
-  // console.log(avatarUrl, file.path);
-  // User.findByIdAndUpdate(id, {업데이트할 내용}, { new: true })
-  // 옵션에 new: true을 설정해주지 않으면, 몽구스는 원래 데이터를 리턴하고,
-  // 옵션에 new: true을 설정하면, 업데이트된 데이터를 리턴한다
+
+  let searchParam = [];
+  if (sessionEmail !== email) {
+    searchParam.push({ email });
+  }
+  if (sessionUsername !== username) {
+    searchParam.push({ username });
+  }
+  if (searchParam.length > 0) {
+    const foundUser = await User.findOne({ $or: searchParam });
+    if (foundUser && foundUser._id.toString() !== _id) {
+      return res.status(400).render("edit-profile", {
+        pageTitle: "Edit Profile",
+        errorMessage: "This username/email is already taken.",
+      });
+    }
+  }
+
   const updateUser = await User.findByIdAndUpdate(
     _id,
     {

@@ -8,7 +8,6 @@ const videoSchema = new mongoose.Schema({
   hashtags: [{ type: String, trim: true }],
   meta: {
     views: { type: Number, default: 0, required: true },
-    rating: { type: Number, default: 0, required: true },
   },
   //몽구스에게 objectId가 model user에서 온다고 알려주는 코드이다
   owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
