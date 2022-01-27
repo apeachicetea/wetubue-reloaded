@@ -6,5 +6,6 @@ mixin video(info)
     ul
       each hashtag in info.hashtags
         li=hashtag
+    span #{info.meta.views} Views  
     small=info.createdAt
     hr
