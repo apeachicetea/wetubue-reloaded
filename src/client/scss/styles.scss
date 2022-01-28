@@ -20,3 +20,18 @@ body {
   background-color: $bg;
   color: white;
 }
+
+.message {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  max-width: 200px;
+  padding: 10px 20px;
+  border-radius: 10000px;
+  right: 0;
+  margin: 0 auto;
+  &.error {
+    background-color: tomato;
+    color: white;
+  }
+}
