@@ -20,3 +20,5 @@ const handleSubmit = (e) => {
 if (form) {
   form.addEventListener("submit", handleSubmit);
 }
+
+// 잔디 안심어지는 버그 찾는중
